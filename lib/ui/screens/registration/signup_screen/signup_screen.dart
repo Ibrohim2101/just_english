@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:just_english/ui/app_navigator/app_routes.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({
@@ -13,6 +12,39 @@ class SignUpScreen extends StatelessWidget {
   final phoneNumberController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordAgainController = TextEditingController();
+
+  Future register(String firstName, String lastName, String phoneNumber,
+      String password, String passwordAgain) async {
+    try {
+      Response response = await post(
+          Uri.parse(
+              'https://ec31-84-54-84-38.ngrok-free.app/api/v1/user/register'),
+          body: {
+            "fname": firstName,
+            "lname": lastName,
+            "email": phoneNumber,
+            "password": password,
+            "password_confirmation": passwordAgain
+          },
+          headers: {
+            'Accept': 'application/json',
+          });
+
+      print(response.statusCode);
+
+      var data = jsonDecode(response.body.toString());
+      if (response.statusCode == 201) {
+        print(data['data']['token']);
+        print('Login successfully');
+        return (data['data']['token']);
+      } else {
+        print('failed');
+        print(data['message']);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +87,12 @@ class SignUpScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.loginScreen);
+                  register(
+                      firtNameController.text.toString(),
+                      lastnameController.text.toString(),
+                      phoneNumberController.text.toString(),
+                      passwordController.text.toString(),
+                      passwordAgainController.text.toString());
                 },
                 child: Text(
                   "Jo'natish",
