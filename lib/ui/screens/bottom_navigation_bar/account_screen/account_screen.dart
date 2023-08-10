@@ -1,102 +1,154 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:just_english/ui/app_navigator/app_routes.dart';
+import 'package:just_english/ui/resources/app_img.dart';
 
 class AccountScreen extends StatelessWidget {
+  const AccountScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        elevation: 1,
+        backgroundColor: Colors.blue,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,color: Colors.white,),
+          onPressed: (){
+            
+          },
+        ),
+        actions: [
+          IconButton(
+          icon: Icon(Icons.settings,color: Colors.white,),
+          onPressed: (){
+            FocusScope.of(context).unfocus();
+          },
+        ),
+        ],
       ),
       body: Container(
-        color: Colors.white,
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: () {
-                // Action to change avatar
-              },
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Colors.blue,
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                      size: 80,
+        padding: EdgeInsets.only(left: 16,top: 25,right: 16),
+        child: GestureDetector(
+          onTap: (){
+
+          },
+          child: ListView(
+            children: [
+              //title
+              Text("Profilni o'zgartirish",
+              style:TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w500
+              ) ,),
+              //avatar
+              Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 4,
+                          color: Theme.of(context).scaffoldBackgroundColor
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            color: Colors.black.withOpacity(0.1),
+                            offset: Offset(0, 10)
+        
+                          )
+                        ],
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage(AppImage.profile)
+                          )
+                      ),
                     ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.blue,
-                    ),
-                    child: Icon(
-                      Icons.camera_alt,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                    padding: EdgeInsets.all(6),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'John Doe',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue,
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Phone Number: 1234567890',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.blue,
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Action to invite friends
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              ),
-              child: Text(
-                'Invite Friends',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          shape: BoxShape.circle
+                        ),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                          ),
+                      )
+                      )
+                  ],
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 35,),
+              ProfileTexfield(),
+              ProfileTexfield(),
+              ProfileTexfield(),
+              ProfileTexfield(),
+              SizedBox(
+                height: 35,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  OutlinedButton(
+                    onPressed: (){}, 
+                    child: Text('Bekor qilish',
+                    style: TextStyle(
+                      letterSpacing: 2.2,
+                      color: Colors.black,
+                      fontSize: 14
+                    ),
+                    )
+                    ),
+                    OutlinedButton(
+                    onPressed: (){}, 
+                    child: Text('Saqlash',
+                    style: TextStyle(
+                      letterSpacing: 2.2,
+                      color: Colors.black,
+                      fontSize: 14
+                    ),
+                    )
+                    ),
+                    
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class ProfileTexfield extends StatelessWidget {
+  const ProfileTexfield({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Settings',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: AccountScreen(),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 35),
+      child: TextField(
+        decoration: InputDecoration(
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          contentPadding: EdgeInsets.only(bottom: 3),
+          labelText: "To'liq ism familyangiz",
+          hintText: "Kambarov Begzod",
+          hintStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black
+          )
+        ),
+      ),
     );
   }
 }

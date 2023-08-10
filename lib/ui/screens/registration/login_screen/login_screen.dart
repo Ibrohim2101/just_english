@@ -69,7 +69,7 @@ _inputField(context){
       ),
       SizedBox(height: 10,),
       ElevatedButton(onPressed: (){
-        Navigator.pushNamed(context, AppRoutes.homeScreen);
+        Navigator.pushNamed(context, AppRoutes.coursesScreen);
       },
        child: Text("Jo'natish",
        style: TextStyle(

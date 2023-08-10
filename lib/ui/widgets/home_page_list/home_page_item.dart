@@ -16,8 +16,10 @@ class HomePageListItem extends StatelessWidget {
         constraints: const BoxConstraints(
           minHeight: 117,
         ),
+
+        //Color(0XFFD4ECF7) darsga primerni rang
         decoration: BoxDecoration(
-            color: AppColors.textColor,
+            color:  Colors.grey[100],
             boxShadow: const [
               BoxShadow(
                   color: Color.fromRGBO(0, 0, 0, 0.3),
@@ -28,6 +30,7 @@ class HomePageListItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(16)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -35,7 +38,7 @@ class HomePageListItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
                       padding: EdgeInsets.all(16),
-                      color: Colors.orange,
+                      color: Colors.red,
                       child: Icon(
                         Icons.book,
                         color: AppColors.textColor,
@@ -44,42 +47,49 @@ class HomePageListItem extends StatelessWidget {
                 const SizedBox(
                   width: 12,
                 ),
-                const Column(
+                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '1-dars',
+                      '1-dars Olmoshlar',
                       style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           height: 18 / 16,
                           fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                   
-                    // Row(
-                    //   children: [
-                    //     Expanded(
-                    //       child: Text(
-                    //         'Olmosh,2 ta reading bitta listening lugat va test',
-                    //         overflow: TextOverflow.fade,
-                    //         maxLines: 2,
-                    //         softWrap: false,
-                    //         style: const TextStyle(
-                    //             color: Colors.grey, fontSize: 14, height: 16 / 14),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // LinearPercentIndicator(
-                    //   animation: true,
-                    //   animationDuration: 1000,
-                    //   lineHeight: 40,
-                    //   percent: 1,
-                    //   progressColor: Colors.blue,
-                    //   backgroundColor: AppColors.textColor,
-                    // )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(Icons.speaker_notes,color: Colors.grey,),
+                          Text('Leksiya',style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16
+                          ),),
+                          SizedBox(width: 5,),
+                          Icon(Icons.menu_book,color: Colors.grey,),
+                          Text('Reading',style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16
+                          ),),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(Icons.headset,color: Colors.grey,),
+                          Text('Listening',style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16
+                          ),),
+                          SizedBox(width: 5,),
+                          Icon(Icons.assignment,color: Colors.grey,),
+                          Text('Test',style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16
+                          ),),
+                        ],
+                      ),
+                      
                   ],
                 ),
               ],

@@ -10,4 +10,7 @@ abstract class AppRoutes {
   static const String testScreen = '/test';
   static const String listeningScreen = '/listening';
   static const String welcomeScreen = 'welcome';
+  static const String signupTwoScreen = 'signup2';
+  static const String coursesScreen = '/courses';
+  static const String quiz = 'quiz';
 }

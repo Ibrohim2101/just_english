@@ -1,126 +1,110 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:just_english/ui/resources/app_img.dart';
 
 class RatingScreen extends StatelessWidget {
-  final List<User> users;
-
-  RatingScreen({required this.users});
+  const RatingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Leaderboard'),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF00AEEF),
-              Color(0xFF9B26AF),
-            ],
-          ),
-        ),
-        child: ListView.separated(
-          itemCount: users.length,
-          separatorBuilder: (context, index) => Divider(
-            color: Colors.grey[200],
-            height: 1,
-          ),
-          itemBuilder: (context, index) {
-            if (index < 3) {
-              return _buildLeaderboardItem(index);
-            } else {
-              return _buildNormalItem(index);
-            }
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+          icon: Icon(Icons.arrow_back,color: Colors.white,),
+          onPressed: (){
+            
           },
         ),
-      ),
-    );
-  }
-
-  Widget _buildLeaderboardItem(int index) {
-    return ListTile(
-      leading: Container(
-        width: 36,
-        height: 36,
-        decoration: BoxDecoration(
-          color: _getLeaderboardColor(index),
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: Text(
-            (index + 1).toString(),
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+          title: Text("Leaderboard",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold
             ),
           ),
+          backgroundColor: Colors.blue,
         ),
-      ),
-      title: Text(
-        users[index].name,
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.white,
-        ),
-      ),
-      subtitle: Text(
-        'Score: ${users[index].score}',
-        style: TextStyle(
-          fontSize: 14,
-          color: Colors.white,
+        body: Column(
+          children: [
+            Container(
+              height: 300,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(image:AssetImage(AppImage.rank))
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 25,right: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Rank',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                  Text('Score',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)
+                ],
+              ),
+            ),
+            Expanded(child:LeaderboardList())
+          ],
         ),
       ),
     );
-  }
+}
 
-  Widget _buildNormalItem(int index) {
-    return ListTile(
-      leading: CircleAvatar(
-        child: Text(
-          (index + 1).toString(),
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
+}
+
+class LeaderboardList extends StatelessWidget {
+  const LeaderboardList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.grey[100],
+      child: ListView.separated(
+        itemBuilder: (context,i)=>LeaderboardItem(), 
+        separatorBuilder: (context,i)=>SizedBox(height: 10,), 
+        itemCount: 10),
+    );
+  }
+}
+
+class LeaderboardItem extends StatelessWidget {
+  const LeaderboardItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Text('1',style: TextStyle(
+                fontSize: 16
+              ),),
+              SizedBox(width: 5,),
+              CircleAvatar(
+                child: Text(
+                  'B',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Colors.blue,
+              ),
+              SizedBox(width: 10),
+              Text(
+                'Begzod',
+                style: TextStyle(fontSize: 20),
+              ),
+            ],
           ),
-        ),
-      ),
-      title: Text(
-        users[index].name,
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.white,
-        ),
-      ),
-      subtitle: Text(
-        'Score: ${users[index].score}',
-        style: TextStyle(
-          fontSize: 14,
-          color: Colors.white,
-        ),
+          Text(
+            '300',
+            style: TextStyle(fontSize: 20),
+          ),
+        ],
       ),
     );
   }
-
-  Color _getLeaderboardColor(int index) {
-    if (index == 0) {
-      return Colors.amber;
-    } else if (index == 1) {
-      return Colors.green;
-    } else if (index == 2) {
-      return Colors.brown[400]!;
-    }
-    return Colors.grey;
-  }
 }
-
-class User {
-  final String name;
-  final int score;
-
-  User({required this.name, required this.score});
-}
-

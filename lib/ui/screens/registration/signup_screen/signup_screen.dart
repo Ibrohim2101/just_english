@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:just_english/ui/app_navigator/app_routes.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({
@@ -13,38 +14,38 @@ class SignUpScreen extends StatelessWidget {
   final passwordController = TextEditingController();
   final passwordAgainController = TextEditingController();
 
-  Future register(String firstName, String lastName, String phoneNumber,
-      String password, String passwordAgain) async {
-    try {
-      Response response = await post(
-          Uri.parse(
-              'https://ec31-84-54-84-38.ngrok-free.app/api/v1/user/register'),
-          body: {
-            "fname": firstName,
-            "lname": lastName,
-            "email": phoneNumber,
-            "password": password,
-            "password_confirmation": passwordAgain
-          },
-          headers: {
-            'Accept': 'application/json',
-          });
+  // Future register(String firstName, String lastName, String phoneNumber,
+  //     String password, String passwordAgain) async {
+  //   try {
+  //     Response response = await post(
+  //         Uri.parse(
+  //             'https://ec31-84-54-84-38.ngrok-free.app/api/v1/user/register'),
+  //         body: {
+  //           "fname": firstName,
+  //           "lname": lastName,
+  //           "email": phoneNumber,
+  //           "password": password,
+  //           "password_confirmation": passwordAgain
+  //         },
+  //         headers: {
+  //           'Accept': 'application/json',
+  //         });
 
-      print(response.statusCode);
+  //     print(response.statusCode);
 
-      var data = jsonDecode(response.body.toString());
-      if (response.statusCode == 201) {
-        print(data['data']['token']);
-        print('Login successfully');
-        return (data['data']['token']);
-      } else {
-        print('failed');
-        print(data['message']);
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  //     var data = jsonDecode(response.body.toString());
+  //     if (response.statusCode == 201) {
+  //       print(data['data']['token']);
+  //       print('Login successfully');
+  //       return (data['data']['token']);
+  //     } else {
+  //       print('failed');
+  //       print(data['message']);
+  //     }
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,12 +88,13 @@ class SignUpScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  register(
-                      firtNameController.text.toString(),
-                      lastnameController.text.toString(),
-                      phoneNumberController.text.toString(),
-                      passwordController.text.toString(),
-                      passwordAgainController.text.toString());
+                  // register(
+                  //     firtNameController.text.toString(),
+                  //     lastnameController.text.toString(),
+                  //     phoneNumberController.text.toString(),
+                  //     passwordController.text.toString(),
+                  //     passwordAgainController.text.toString());
+                  Navigator.pushNamed(context, AppRoutes.signupTwoScreen);
                 },
                 child: Text(
                   "Jo'natish",
@@ -156,63 +158,3 @@ _header(context) {
   );
 }
 
-// Future<Map<String,dynamic>> fetchData() async {
-//   final response = await get (Uri.parse('https://ba0c-84-54-84-38.ngrok-free.app'));
-
-//   if(response.statusCode == 200){
-//     return jsonDecode(response.body);
-//   }else{
-//     throw Exception('failed');
-//   }
-// }
-
-
-// _inputField(context){
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.stretch,
-//     children: [
-//       TextField(
-//         decoration: InputDecoration(
-//           hintText: 'Ismingizni kiriting',
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(15),
-//             borderSide: BorderSide.none,
-//           ),
-//           fillColor: Colors.blue.withOpacity(0.1),
-//           filled: true,
-//           prefixIcon: Icon(Icons.person)
-//         ),
-//       ),
-//       SizedBox(height: 10,),
-//       TextField(
-//         decoration: InputDecoration(
-//           hintText: 'Familyangizni kiriting',
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(15),
-//             borderSide: BorderSide.none,
-//           ),
-//           fillColor: Colors.blue.withOpacity(0.1),
-//           filled: true,
-//           prefixIcon: Icon(Icons.person)
-//         ),
-//         // obscureText: true,
-//       ),
-//       SizedBox(height: 10,),
-//       ElevatedButton(onPressed: (){
-//         Navigator.pushNamed(context,AppRoutes.loginScreen);
-//       },
-//        child: Text("Jo'natish",
-//        style: TextStyle(
-//         fontSize: 20,
-//         color: Colors.white
-//        ),
-//        ),
-//        style: ElevatedButton.styleFrom(
-//         shape: StadiumBorder(),
-//         backgroundColor: Colors.blue,
-//         padding: EdgeInsets.symmetric(vertical: 16)
-//        ),
-//        )
-//     ],
-//   );
-// }
